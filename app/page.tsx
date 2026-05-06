@@ -2,8 +2,8 @@ import {Button} from "@/components/ui/button";
 
 export default function Home() {
   return (
-      <main className="pt-16">
-        <div className="relative w-full h-[80vh]">
+      <main >
+        <div className="relative w-full h-[93vh]">
           <img 
           src="/home.jpg" 
           alt="home" 
