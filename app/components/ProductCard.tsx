@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 export default function ProductCard({productItem}: any){
     const {name, price, description, image} = productItem;
     return (
-        <Card className="w-full max-w-sm">
-            <img src={image}/>
+        <Card className="w-full max-w-sm p-4">
+            <img src={image} width="auto"/>
             <h1>{name}</h1>
             <h1>${price}</h1>
             <h1>{description}</h1>

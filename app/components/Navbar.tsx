@@ -58,7 +58,9 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
             <Search className="w-5 h-5 cursor-pointer"/>
             <ShoppingBag className="w-5 h-5 cursor-pointer"/>
-            <Button variant="outline">Login</Button>
+            <Button variant="outline">
+                <Link href="/login">Login</Link>
+            </Button>
         </div>
   
             {/* <div className="flex gap-6">
