@@ -1,8 +1,4 @@
 import ProductCard from "../components/ProductCard";
-import painting from "@/public/painting.jpg";
-import clayhouse from "@/public/clayhouse.jpg"
-import knitting1 from "@/public/knitting1.jpg"
-import christmas from "@/public/christmas.jpg"
 
 export default function ProducsPage(){
     const products=[
@@ -34,7 +30,7 @@ export default function ProducsPage(){
         },
     ];
     return(
-        <div className="flex justify-content: space-around p-6">
+        <div className="flex justify-around gap-6 p-6">
             {products.map(product=>(
              <ProductCard key={product.id} productItem={product} />
             ))}
