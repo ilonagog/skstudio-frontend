@@ -1,6 +1,16 @@
+"use client";
+
 import {Button} from "@/components/ui/button";
+import {useRouter} from "next/navigation";
+
 
 export default function Home() {
+  const router  = useRouter();
+
+  const handleShop = () => {
+    router.push("/products")
+
+  }
   return (
       <main >
         <div className="relative w-full h-[93vh]">
@@ -13,7 +23,7 @@ export default function Home() {
             <h1 className="text-4xl font-semibold">
               Welcome to my store!
             </h1>
-            <Button>Shop Now</Button>            
+            <Button onClick={handleShop}>Shop Now</Button>            
           </div>
         </div>
       </main>

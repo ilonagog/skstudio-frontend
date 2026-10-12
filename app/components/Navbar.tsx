@@ -28,7 +28,7 @@ export default function Navbar() {
     // }
     return (
         <nav className="flex items-center justify-between p-3 border-b">
-            <Link href="/" className="font-bold text-x1">
+            <Link href="/" className="font-bold text-xl">
                 MyStore
             </Link>
             <NavigationMenu>
