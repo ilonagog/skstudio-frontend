@@ -7,17 +7,21 @@ import { Label } from "@/components/ui/label"
 export default function SignUpPage (){
     return (
         <div>
-            <h1>Create your account</h1>
                 <Card>
                     <CardHeader>
-                        <CardTitle>Login to your account</CardTitle>
-                            <CardAction>
-                                <Button>Sign Up</Button>
-                            </CardAction>
+                        <CardTitle>Create your account here</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form>
                             <div>
+                                <div>
+                                    <Label>First Name</Label>
+                                    <Input id="firstName" type="firstName" />
+                                </div>
+                                <div>
+                                    <Label>Last Name</Label>
+                                    <Input id="lastName" type="lastName"/>
+                                </div>
                                 <div>
                                     <Label>Email</Label>
                                     <Input
@@ -36,7 +40,7 @@ export default function SignUpPage (){
                         </form>
                     </CardContent>
                     <CardFooter>
-                        <Button>LogIn</Button>
+                        <Button>Save</Button>
                     </CardFooter>
                 </Card>
         </div>
