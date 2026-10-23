@@ -12,7 +12,7 @@ const product = {
 
 describe("ProductCard", () => {
   it("shows the product name, price and description", () => {
-    render(<ProductCard productItem={product} />);
+    render(<ProductCard productItem={product} isAdmin={false}/>);
 
     expect(screen.getByText("Painting")).toBeInTheDocument();
     expect(screen.getByText("$5")).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("ProductCard", () => {
   });
 
   it("offers an add to cart action", () => {
-    render(<ProductCard productItem={product} />);
+    render(<ProductCard productItem={product} isAdmin={false}/>);
 
     expect(
       screen.getByRole("button", { name: /add to the cart/i }),

@@ -1,6 +1,6 @@
 import ProductCard from "../components/ProductCard";
 
-export default function ProducsPage(){
+export default function ProductsPage(){
     const products=[
         {
             id:1, 
@@ -30,9 +30,9 @@ export default function ProducsPage(){
         },
     ];
     return(
-        <div className="flex justify-around gap-6 p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
             {products.map(product=>(
-             <ProductCard key={product.id} productItem={product} />
+             <ProductCard key={product.id} productItem={product} isAdmin={false}/>
             ))}
         </div>
     );
