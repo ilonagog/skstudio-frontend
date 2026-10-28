@@ -1,4 +1,12 @@
+"use client";
+import {useState} from "react";
 import ProductCard from "../components/ProductCard";
+import { Input } from "@/components/ui/input";
+
+import ProductSort from "../components/ProductSort";
+import ProductFilters from "../components/ProductFilters";
+
+
 
 export default function ProductsPage(){
     const products=[
@@ -31,9 +39,13 @@ export default function ProductsPage(){
     ];
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+            <ProductSort/>
+            <ProductFilters/>
             {products.map(product=>(
              <ProductCard key={product.id} productItem={product} isAdmin={false}/>
             ))}
+            <Input 
+            />
         </div>
     );
 }
