@@ -45,7 +45,7 @@ export default function Navbar() {
  
 
     return (
-        <nav className="flex items-center justify-between p-3 border-b">
+        <nav className="flex items-center justify-between p-3 bg-[#97A89C] border-b">
             <Link href="/" className="font-bold text-xl">
                 MyStore
             </Link>

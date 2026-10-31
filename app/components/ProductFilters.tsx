@@ -26,10 +26,18 @@ const colors= [
   "Mohair",
   "Ceramic",
  ];
+ const categories = [
+  "Toys",
+  "Clothing",
+  "Paintings",
+  "Accessories",
+  "Home Decor"
+ ];
 
 export default function ProductFilters({onApply} : ProductFiltersProps) {
   const [selectColors, setSelectColors] = useState<string[]>([]);
   const [selectMaterials, setSelectMaterials] = useState<string[]>([]);
+  const [selectCategories, setSelectCategories] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [isOpen, setIsOpen] = useState(false)
@@ -49,12 +57,14 @@ export default function ProductFilters({onApply} : ProductFiltersProps) {
   function clearFilters() {
     setSelectColors([]);
     setSelectMaterials([]);
+    setSelectCategories([]);
     setMinPrice("");
     setMaxPrice("");
 
     onApply({
       colors: [],
       materials: [],
+      categories: [],
       minPrice: "",
       maxPrice: "",
     });
@@ -64,6 +74,7 @@ export default function ProductFilters({onApply} : ProductFiltersProps) {
     onApply({
       colors: selectColors,
       materials: selectMaterials,
+      categories: selectCategories,
       minPrice,
       maxPrice,
     });
@@ -153,6 +164,35 @@ export default function ProductFilters({onApply} : ProductFiltersProps) {
               />
 
               {material}
+            </label>
+          ))}
+        </div>
+      </details>
+        <details open className="border-b pb-4">
+        <summary className="cursor-pointer font-medium">
+          Categories
+        </summary>
+
+        <div className="mt-3 space-y-3">
+          {categories.map((category) => (
+            <label
+              key={category}
+              className="flex cursor-pointer items-center gap-3 text-sm"
+            >
+              <input
+                type="checkbox"
+                checked={selectCategories.includes(category)}
+                onChange={() =>
+                  toggleSelection(
+                    category,
+                    selectCategories,
+                    setSelectCategories
+                  )
+                }
+                className="size-4 accent-stone-800"
+              />
+
+              {category}
             </label>
           ))}
         </div>

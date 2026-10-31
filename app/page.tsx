@@ -15,7 +15,7 @@ export default function Home() {
       <main >
         <div className="relative w-full h-[93vh]">
           <img 
-          src="/home.jpg" 
+          src="/home.jpeg" 
           alt="home" 
           className="w-full h-full object-cover"
           />
