@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, Suspense } from "react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {Search, ShoppingBag} from "lucide-react";
@@ -14,6 +14,7 @@ import {
     NavigationMenuList, 
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import SearchBar from "./SearchBar";
 const produstList =[
     {title: "Christams Toys", href: "/products/toys"},
     {title: "Painting", href: "/products/painting"},
@@ -75,9 +76,10 @@ export default function Navbar() {
              </NavigationMenuList>
         </NavigationMenu>
         <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" aria-label="Search" onClick={() => router.push("/search")}>
-                <Search className="h-5 w-5"/>
-            </Button>
+            <Suspense fallback={null}>
+
+                <SearchBar/>
+            </Suspense>
             <Button variant="ghost" size="icon" aria-label="Shopping bag" onClick={()=> router.push("/cart")}>
                 <ShoppingBag className="h-5 w-5"/>
             </Button>
