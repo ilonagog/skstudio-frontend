@@ -13,86 +13,115 @@ const products=[
         id:1, 
         name:"Painting", 
         price: 5, 
+        color:"Cream", 
+        category: "Painting", 
+        material:"Canvas", 
         description: "Painting of colors", 
         image: "/painting.jpeg"},
     {
         id:2, 
         name:"Clay House", 
         price: 10, 
+        color:"Cream", 
+        category: "Home Decor",
+        material:"Clay",  
         description: "House from the clay",
         image: "/clayhouse.jpeg"
     },
             {
         id:3, 
         name:"Knitted scarf", 
-        price: 5, 
+        price: 5,
+        color:"White", 
+        category: "Clothing", 
+        material:"Wool",  
         description: "Purple scarf", 
         image: "/scarf.jpeg"},
     {
         id:4, 
         name:"Christmas ornament", 
         price: 10, 
+        color:"Cream", 
+        category: "Home Decor", 
+        material:"Clay", 
         description: "Christmas Toy",
         image: "/christmas.jpeg"
     },
 ];
 
 export default function ProductsPage(){
-    const [sortedProducts, setSortedProducts] = useState(products);
+    const [sortBy, setSortBy] = useState("featured");
+    const [search, setSearch] = useState("");
+    const [selectedColors, setSelectedColors]= useState<string[]>([]);
+
+    const handleSearch = products.filter((product)=>{
+    return product.name.toLowerCase().includes(search.toLowerCase())
+    });
+
+    const filteredProducts = products.filter((product)=>{
+        if(selectedColors.length === 0) 
+            return true;
+        return selectedColors.includes(product.color)
+    });
+    const productsListed = [...filteredProducts].sort((a,b)=>{
+        if(sortBy === "price-low") return a.price - b.price;
+        if(sortBy === "price-high") return b.price - a.price;
+        return 0;
+    });
   return (
-<main className="min-h-screen bg-[#5E6A62] px-5 py-10 text-gray-900 sm:px-8">      <div className="mx-auto max-w-7xl">
-        {/* Page heading */}
-        <div className="mb-10 border-b border-neutral-800 pb-6">
-          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-black-400">
-            SKStudio Collection
-          </p>
+    <main className="min-h-screen bg-[#5E6A62] px-5 py-10 text-gray-900 sm:px-8">      <div className="mx-auto max-w-7xl">
+            {/* Page heading */}
+            <div className="mb-10 border-b border-neutral-800 pb-6">
+            <p className="mb-2 text-xs uppercase tracking-[0.3em] text-black-400">
+                SKStudio Collection
+            </p>
+            </div>
+
+            {/* Sidebar + products */}
+            {/* <div className="grid grid-cols-1 gap-10 md:grid-cols-[220px_minmax(0,1fr)]"> */}
+            {/* Left sidebar */}
+                <div className="mb-6 flex items-center justify-between gap-4">
+                <ProductFilters selectedColors={selectedColors} onColorsChange={setSelectedColors} />
+                <div>
+
+                <ProductSort sortBy={sortBy} onSortChange={setSortBy}/>
+                </div>
+                </div>
+            {/* Right side */}
+            <section className="min-w-0">
+                <div className="mb-6 flex items-center justify-between gap-4">
+                <p className="mx-auto max-w-md text-center text-black-400">
+                    Explore our collection
+                </p>
+
+                </div>
+
+                {/* Product cards */}
+                <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {productsListed.map((product) => (
+                    <article key={product.id} className="group min-w-0">
+                    <div className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
+                        <img
+                        src={product.image}
+                        alt={product.name}
+                        className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                    </div>
+
+                    <div className="pt-3">
+                        <h2 className="text-sm font-medium text-black-100">
+                        {product.name}
+                        </h2>
+                        <p className="mt-1 text-sm text-black-400">
+                        ${product.price.toFixed(2)}
+                        </p>
+                    </div>
+                    </article>
+                ))}
+                </div>
+            </section>
+            {/* </div> */}
         </div>
-
-        {/* Sidebar + products */}
-        {/* <div className="grid grid-cols-1 gap-10 md:grid-cols-[220px_minmax(0,1fr)]"> */}
-          {/* Left sidebar */}
-            <div className="mb-6 flex items-center justify-between gap-4">
-            <ProductFilters />
-            <div>
-
-              <ProductSort products={products} onSort={setSortedProducts}/>
-            </div>
-            </div>
-          {/* Right side */}
-          <section className="min-w-0">
-            <div className="mb-6 flex items-center justify-between gap-4">
-              <p className="mx-auto max-w-md text-center text-black-400">
-                Explore our collection
-              </p>
-
-            </div>
-
-            {/* Product cards */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {sortedProducts.map((product) => (
-                <article key={product.id} className="group min-w-0">
-                  <div className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="pt-3">
-                    <h2 className="text-sm font-medium text-black-100">
-                      {product.name}
-                    </h2>
-                    <p className="mt-1 text-sm text-black-400">
-                      ${product.price.toFixed(2)}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        {/* </div> */}
-      </div>
-    </main>
+        </main>
   );
 }
