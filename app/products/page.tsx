@@ -53,21 +53,26 @@ export default function ProductsPage(){
     const [sortBy, setSortBy] = useState("featured");
     const [search, setSearch] = useState("");
     const [selectedColors, setSelectedColors]= useState<string[]>([]);
+    const [selectedCategories, setSelectedCategories]= useState<string[]>([]);
+    const [selectedMaterials, setSelectedMaterials]= useState<string[]>([]);
 
     const handleSearch = products.filter((product)=>{
     return product.name.toLowerCase().includes(search.toLowerCase())
     });
 
     const filteredProducts = products.filter((product)=>{
-        if(selectedColors.length === 0) 
-            return true;
-        return selectedColors.includes(product.color)
+        const colorOk = selectedColors.length === 0 || selectedColors.includes(product.color);
+        const materialOk = selectedMaterials.length === 0 || selectedMaterials.includes(product.material);
+        const categoryOk = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+            return colorOk && materialOk && categoryOk 
     });
     const productsListed = [...filteredProducts].sort((a,b)=>{
         if(sortBy === "price-low") return a.price - b.price;
         if(sortBy === "price-high") return b.price - a.price;
         return 0;
     });
+    console.log("ticked:", selectedColors, selectedMaterials, selectedCategories);
+    console.log("filtered:", filteredProducts.length, "final:", productsListed.length);
   return (
     <main className="min-h-screen bg-[#5E6A62] px-5 py-10 text-gray-900 sm:px-8">      <div className="mx-auto max-w-7xl">
             {/* Page heading */}
@@ -81,7 +86,11 @@ export default function ProductsPage(){
             {/* <div className="grid grid-cols-1 gap-10 md:grid-cols-[220px_minmax(0,1fr)]"> */}
             {/* Left sidebar */}
                 <div className="mb-6 flex items-center justify-between gap-4">
-                <ProductFilters selectedColors={selectedColors} onColorsChange={setSelectedColors} />
+                <ProductFilters 
+                    selectedColors={selectedColors} onColorsChange={setSelectedColors} 
+                    selectedCategories={selectedCategories} onCategoriesChange={setSelectedCategories}
+                    selectedMaterials={selectedMaterials} onMaterialsChange={setSelectedMaterials}
+                />
                 <div>
 
                 <ProductSort sortBy={sortBy} onSortChange={setSortBy}/>

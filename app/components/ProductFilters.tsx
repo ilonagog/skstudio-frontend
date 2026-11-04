@@ -3,17 +3,9 @@
 import { useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";   
 
-// export type ProductFiltersValue = {
-//   colors: string[];
-//   materials: string[];
-//   categories: string[];
-//   minPrice: string;
-//   maxPrice: string;
-// };
-// type ProductFiltersProps = {
-//   onApply: (filters: ProductFiltersValue) => void
-// };
+
 const colors= [
   { name: "Sage", hex: "#9CAF88" },
   { name: "Cream", hex: "#F3EBDD" },
@@ -23,26 +15,32 @@ const colors= [
   {name: "White", hex: "#ffffffff" }
 ];
 
+const materials =[
+ "Wool",
+ "Cotton",
+ "Mohair",
+ "Clay",
+ "Canvas",
+];
+const categories = [
+ "Toys",
+ "Clothing",
+ "Painting",
+ "Accessories",
+ "Home Decor"
+];
 type ProductFiltersProps = {
+
   selectedColors: string[];
   onColorsChange: (colors: string[]) => void;
+  selectedCategories: string[];
+  onCategoriesChange: (categories: string[]) => void;
+  selectedMaterials: string[];
+  onMaterialsChange: (materials: string[]) => void;
 }
-//  const materials =[
-//   "Wool",
-//   "Cotton",
-//   "Mohair",
-//   "Clay",
-//   "Canvas",
-//  ];
-//  const categories = [
-//   "Toys",
-//   "Clothing",
-//   "Painting",
-//   "Accessories",
-//   "Home Decor"
-//  ];
 
-export default function ProductFilters({selectedColors, onColorsChange}: ProductFiltersProps){
+export default function ProductFilters({selectedColors, onColorsChange, selectedCategories, onCategoriesChange, selectedMaterials, onMaterialsChange}: ProductFiltersProps){
+  const [isOpen, setIsOpen] = useState(false);
   // const [selectedColors, setSelectedColors]= useState<string[]>([]);
 
   const handleColorChange = (color: string) =>{
@@ -51,236 +49,89 @@ export default function ProductFilters({selectedColors, onColorsChange}: Product
     }else{
        onColorsChange([...selectedColors, color])}
   }
+  const handleCategoriesChange = (category: string) => {
+    if(selectedCategories.includes(category)){
+      onCategoriesChange(selectedCategories.filter((ct)=> ct !== category))
+    }else{
+      onCategoriesChange([...selectedCategories, category])
+    }
+  }
+  const handleMaterialsChange = (material: string) => {
+    if(selectedMaterials.includes(material)){
+      onMaterialsChange(selectedMaterials.filter((m)=> m !== material))
+    }else{
+      onMaterialsChange([...selectedMaterials, material])
+    }
+  }
+  
   return (
     <div>
-
-        <h1>Filters</h1>
+      <Button onClick={()=>setIsOpen(true)} className="text-lg font-semibold">Filters</Button>
+      {isOpen && (
         <div>
-        {colors.map((color) => {
-          const isActive = selectedColors.includes(color.name);
-          return (
-            <label key={color.name}>
-            <Checkbox checked={isActive} onCheckedChange={() => handleColorChange(color.name)}/>{color.name}</label>
-          );
-        })}
+          <div className="flex items-center justify-between border-b pb-3">
+                <button type="button" onClick={()=>setIsOpen(false)} aria-label="Close filters" className="flex h-10 items-center justify-center rounded-full text-stone-700">
+                  <X className="h-5 w-5"/>
+                </button>
+          </div>
+          <details open className="border-b pb-4">
+            <summary className="cursor-pointer font-medium">
+              Categories
+            </summary>
+            <div>
+              {categories.map((category)=>{
+                const isActive =selectedCategories.includes(category);
+                return(
+                  <label key={category}>
+                    <Checkbox checked={isActive} onCheckedChange={()=>handleCategoriesChange(category)}/>{category}
+                  </label>
+                )
+              })}
+            </div>
+          </details>
+    
+          <details open className="border-b pb-4">
+            <summary className="cursor-pointer font-medium">
+              Material
+            </summary>
+            <div>
+              {materials.map((material)=>{
+                const isActive = selectedMaterials.includes(material);
+                return (
+                  <label key={material}>
+                    <Checkbox checked={isActive} onCheckedChange={()=>handleMaterialsChange(material)}/>{material}
+                  </label>
+                )
+              })}
+            </div>
+          </details>
+          <details open className="border-b pb-4">
+            <summary className="cursor-pointer font-medium">
+              Color
+            </summary>
+            <div className="mt-3 space-y-3">
+              {colors.map((color) => (
+                <label key={color.name} className="flex cursor-pointer items-center gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={selectedColors.includes(color.name)}
+                    onChange={() => handleColorChange(color.name)}
+                    className="size-4 accent-stone-800"
+                  />
+                  <span
+                    className="size-5 rounded-full border"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  {color.name}
+                </label>
+              ))}
+            </div>
+          </details>
+          <button type="button" onClick={()=>setIsOpen(false)} className="mt-5 rounded-md bg-black px-4 py-2 text-white">Cancel</button>
         </div>
+      )}
     </div>
-  )
-}
+  )}
 
 
 
-  // const [selectColors, setSelectColors] = useState<string[]>([]);
-  // const [selectMaterials, setSelectMaterials] = useState<string[]>([]);
-  // const [selectCategories, setSelectCategories] = useState<string[]>([]);
-  // const [minPrice, setMinPrice] = useState("");
-  // const [maxPrice, setMaxPrice] = useState("");
-  // const [isOpen, setIsOpen] = useState(false)
-
-  // function toggleSelection(
-  //   value: string,
-  //   selected: string[],
-  //   setSelected: (values: string[]) => void
-  // ) {
-  //   setSelected(
-  //     selected.includes(value)
-  //       ? selected.filter((item) => item !== value)
-  //       : [...selected, value]
-  //   );
-  // }
-
-  // function clearFilters() {
-  //   setSelectColors([]);
-  //   setSelectMaterials([]);
-  //   setSelectCategories([]);
-  //   setMinPrice("");
-  //   setMaxPrice("");
-
-  //   onApply({
-  //     colors: [],
-  //     materials: [],
-  //     categories: [],
-  //     minPrice: "",
-  //     maxPrice: "",
-  //   });
-  // }
-
-  // function applyFilters() {
-  //   onApply({
-  //     colors: selectColors,
-  //     materials: selectMaterials,
-  //     categories: selectCategories,
-  //     minPrice,
-  //     maxPrice,
-  //   });
-  // }
-
-
-//   return (
-//     <div>
-
-//     <Button onClick={()=> setIsOpen(true)} className="text-lg font-semibold">Filters</Button>
-//     {isOpen && (
-
-//     <aside className="w-full max-w-sm space-y-5 rounded-xl border p-5">
-//       <div className="flex items-center justify-between">
-//         <button
-//         type="button"
-//         aria-label="Close modal"
-//         onClick={()=>setIsOpen(false)}>X</button>
-//         <button
-//           type="button"
-//           onClick={clearFilters}
-//           className="text-sm underline"
-//         >
-//           Clear all
-//         </button>
-//       </div>
-
-//       {/* Color filter */}
-//       <details open className="border-b pb-4">
-//         <summary className="cursor-pointer font-medium">
-//           Color
-//         </summary>
-
-//         <div className="mt-3 space-y-3">
-//           {colors.map((color) => (
-//             <label
-//               key={color.name}
-//               className="flex cursor-pointer items-center gap-3 text-sm"
-//             >
-//               <input
-//                 type="checkbox"
-//                 checked={selectColors.includes(color.name)}
-//                 onChange={() =>
-//                   toggleSelection(
-//                     color.name,
-//                     selectColors,
-//                     setSelectColors
-//                   )
-//                 }
-//                 className="size-4 accent-stone-800"
-//               />
-
-//               <span
-//                 className="size-5 rounded-full border"
-//                 style={{ backgroundColor: color.hex }}
-//               />
-
-//               {color.name}
-//             </label>
-//           ))}
-//         </div>
-//       </details>
-
-//       {/* Material filter */}
-//       <details open className="border-b pb-4">
-//         <summary className="cursor-pointer font-medium">
-//           Material
-//         </summary>
-
-//         <div className="mt-3 space-y-3">
-//           {materials.map((material) => (
-//             <label
-//               key={material}
-//               className="flex cursor-pointer items-center gap-3 text-sm"
-//             >
-//               <input
-//                 type="checkbox"
-//                 checked={selectMaterials.includes(material)}
-//                 onChange={() =>
-//                   toggleSelection(
-//                     material,
-//                     selectMaterials,
-//                     setSelectMaterials
-//                   )
-//                 }
-//                 className="size-4 accent-stone-800"
-//               />
-
-//               {material}
-//             </label>
-//           ))}
-//         </div>
-//       </details>
-//         <details open className="border-b pb-4">
-//         <summary className="cursor-pointer font-medium">
-//           Categories
-//         </summary>
-
-//         <div className="mt-3 space-y-3">
-//           {categories.map((category) => (
-//             <label
-//               key={category}
-//               className="flex cursor-pointer items-center gap-3 text-sm"
-//             >
-//               <input
-//                 type="checkbox"
-//                 checked={selectCategories.includes(category)}
-//                 onChange={() =>
-//                   toggleSelection(
-//                     category,
-//                     selectCategories,
-//                     setSelectCategories
-//                   )
-//                 }
-//                 className="size-4 accent-stone-800"
-//               />
-
-//               {category}
-//             </label>
-//           ))}
-//         </div>
-//       </details>
-
-//       {/* Price filter */}
-//       <details open className="border-b pb-4">
-//         <summary className="cursor-pointer font-medium">
-//           Price
-//         </summary>
-
-//         <div className="mt-3 grid grid-cols-2 gap-3">
-//           <label className="text-sm">
-//             Min ($)
-//             <input
-//               type="number"
-//               min="0"
-//               value={minPrice}
-//               onChange={(event) =>
-//                 setMinPrice(event.target.value)
-//               }
-//               placeholder="0"
-//               className="mt-1 w-full rounded-md border px-3 py-2"
-//             />
-//           </label>
-
-//           <label className="text-sm">
-//             Max ($)
-//             <input
-//               type="number"
-//               min="0"
-//               value={maxPrice}
-//               onChange={(event) =>
-//                 setMaxPrice(event.target.value)
-//               }
-//               placeholder="100"
-//               className="mt-1 w-full rounded-md border px-3 py-2"
-//             />
-//           </label>
-//         </div>
-//       </details>
-
-//       <button
-//         type="button"
-//         onClick={applyFilters}
-//         className="w-full rounded-md bg-stone-900 px-4 py-3 text-sm font-medium text-white hover:bg-stone-700"
-//       >
-//         Apply filters
-//       </button>
-//       <button type="button" onClick={()=>setIsOpen(false)}
-//       className="mt-5 rounded-md bg-black px-4 py-2 text-white">Cancel</button>
-//     </aside>
-//     )}
-//     </div>
-//   );
-// }
