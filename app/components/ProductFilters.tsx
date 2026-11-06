@@ -68,67 +68,72 @@ export default function ProductFilters({selectedColors, onColorsChange, selected
     <div>
       <Button onClick={()=>setIsOpen(true)} className="text-lg font-semibold">Filters</Button>
       {isOpen && (
-        <div>
-          <div className="flex items-center justify-between border-b pb-3">
-                <button type="button" onClick={()=>setIsOpen(false)} aria-label="Close filters" className="flex h-10 items-center justify-center rounded-full text-stone-700">
-                  <X className="h-5 w-5"/>
-                </button>
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/40"
+            onClick={()=> setIsOpen(false)}
+          />
+            <div className="fixed inset-y-0 left-0 z-50 w-80 max-w-[85w] overflow-y-auto bg-white p-5 text-stone-900 shadow-xl">
+                  <button type="button" onClick={()=>setIsOpen(false)} aria-label="Close filters" className="flex h-10 items-center justify-center rounded-full text-stone-700">
+                    <X className="h-5 w-5"/>
+                  </button>
+            
+            <details open className="border-b pb-4">
+              <summary className="cursor-pointer font-medium">
+                Categories
+              </summary>
+              <div>
+                {categories.map((category)=>{
+                  const isActive =selectedCategories.includes(category);
+                  return(
+                    <label key={category}>
+                      <Checkbox checked={isActive} onCheckedChange={()=>handleCategoriesChange(category)}/>{category}
+                    </label>
+                  )
+                })}
+              </div>
+            </details>
+      
+            <details open className="border-b pb-4">
+              <summary className="cursor-pointer font-medium">
+                Material
+              </summary>
+              <div>
+                {materials.map((material)=>{
+                  const isActive = selectedMaterials.includes(material);
+                  return (
+                    <label key={material}>
+                      <Checkbox checked={isActive} onCheckedChange={()=>handleMaterialsChange(material)}/>{material}
+                    </label>
+                  )
+                })}
+              </div>
+            </details>
+            <details open className="border-b pb-4">
+              <summary className="cursor-pointer font-medium">
+                Color
+              </summary>
+              <div className="mt-3 space-y-3">
+                {colors.map((color) => (
+                  <label key={color.name} className="flex cursor-pointer items-center gap-3 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={selectedColors.includes(color.name)}
+                      onChange={() => handleColorChange(color.name)}
+                      className="size-4 accent-stone-800"
+                    />
+                    <span
+                      className="size-5 rounded-full border"
+                      style={{ backgroundColor: color.hex }}
+                    />
+                    {color.name}
+                  </label>
+                ))}
+              </div>
+            </details>
+            <button type="button" onClick={()=>setIsOpen(false)} className="mt-5 rounded-md bg-black px-4 py-2 text-white">Cancel</button>
           </div>
-          <details open className="border-b pb-4">
-            <summary className="cursor-pointer font-medium">
-              Categories
-            </summary>
-            <div>
-              {categories.map((category)=>{
-                const isActive =selectedCategories.includes(category);
-                return(
-                  <label key={category}>
-                    <Checkbox checked={isActive} onCheckedChange={()=>handleCategoriesChange(category)}/>{category}
-                  </label>
-                )
-              })}
-            </div>
-          </details>
-    
-          <details open className="border-b pb-4">
-            <summary className="cursor-pointer font-medium">
-              Material
-            </summary>
-            <div>
-              {materials.map((material)=>{
-                const isActive = selectedMaterials.includes(material);
-                return (
-                  <label key={material}>
-                    <Checkbox checked={isActive} onCheckedChange={()=>handleMaterialsChange(material)}/>{material}
-                  </label>
-                )
-              })}
-            </div>
-          </details>
-          <details open className="border-b pb-4">
-            <summary className="cursor-pointer font-medium">
-              Color
-            </summary>
-            <div className="mt-3 space-y-3">
-              {colors.map((color) => (
-                <label key={color.name} className="flex cursor-pointer items-center gap-3 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={selectedColors.includes(color.name)}
-                    onChange={() => handleColorChange(color.name)}
-                    className="size-4 accent-stone-800"
-                  />
-                  <span
-                    className="size-5 rounded-full border"
-                    style={{ backgroundColor: color.hex }}
-                  />
-                  {color.name}
-                </label>
-              ))}
-            </div>
-          </details>
-          <button type="button" onClick={()=>setIsOpen(false)} className="mt-5 rounded-md bg-black px-4 py-2 text-white">Cancel</button>
-        </div>
+        </>
       )}
     </div>
   )}
