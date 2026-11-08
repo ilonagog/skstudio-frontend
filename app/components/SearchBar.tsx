@@ -3,13 +3,15 @@ import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import {useRouter} from "next/navigation";
 
 export default function SearchBar(){
     const [search, setSearch] = useState("");
-    function handleSubmit(){
-        return (<div>
-
-        </div>)
+    const router = useRouter();
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+        const q = search.trim();
+        router.push(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
     }
 
 

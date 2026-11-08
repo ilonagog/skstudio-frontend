@@ -1,13 +1,15 @@
 "use client";
 
 import ProductCard from "../components/ProductCard";
-
+import {useSearchParams} from "next/navigation";
 
 import ProductSort from "../components/ProductSort";
 import ProductFilters from "../components/ProductFilters";
 import { useState } from "react";
 
 
+// const searchParams =  useSearchParams();
+// const query = searchParams.get("q") ?? "";
 const products=[
     {
         id:1, 
@@ -51,20 +53,25 @@ const products=[
 
 export default function ProductsPage(){
     const [sortBy, setSortBy] = useState("featured");
-    const [search, setSearch] = useState("");
+    // const [query, setQuery] = useState("");
     const [selectedColors, setSelectedColors]= useState<string[]>([]);
     const [selectedCategories, setSelectedCategories]= useState<string[]>([]);
     const [selectedMaterials, setSelectedMaterials]= useState<string[]>([]);
+    const searchParams =  useSearchParams();
+    const query = searchParams.get("q") ?? "";
 
-    const handleSearch = products.filter((product)=>{
-    return product.name.toLowerCase().includes(search.toLowerCase())
-    });
+    const searchKeys = ['name', 'color', 'material', 'description'] as const;
+
+    // const handleSearch = products.filter((product) => {
+    //     return searchKeys.some((key) => product[key].toLowerCase().includes(query.toLowerCase()))
+    // });
 
     const filteredProducts = products.filter((product)=>{
         const colorOk = selectedColors.length === 0 || selectedColors.includes(product.color);
         const materialOk = selectedMaterials.length === 0 || selectedMaterials.includes(product.material);
         const categoryOk = selectedCategories.length === 0 || selectedCategories.includes(product.category);
-            return colorOk && materialOk && categoryOk 
+        const searchOk = query.length === 0 || searchKeys.some((key) => product[key].toLowerCase().includes(query.toLowerCase()));
+            return colorOk && materialOk && categoryOk && searchOk
     });
     const productsListed = [...filteredProducts].sort((a,b)=>{
         if(sortBy === "price-low") return a.price - b.price;
