@@ -12,6 +12,7 @@ export default function SearchBar(){
         e.preventDefault();
         const q = search.trim();
         router.push(q ? `/products?q=${encodeURIComponent(q)}` : "/products");
+        setSearch("");
     }
 
 
