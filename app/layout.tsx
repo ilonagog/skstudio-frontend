@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyStore",
-  description: "Handmade paintings, clay houses, knitwear and ornaments.",
+  title: "Sofika",
+  description: "Beautiful Handmade art, home decor and accessories.",
+  icons: {
+    icon: "/sofika-logo.png",
+  },
 };
 
 export default function RootLayout({

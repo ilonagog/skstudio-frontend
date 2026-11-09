@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button";
 import {Search, ShoppingBag} from "lucide-react";
 import {useRouter} from "next/navigation";
 import { UserContext } from "../context/UserContext";
+import { playfair } from "../fonts";
 
 
 import {
@@ -47,8 +48,8 @@ export default function Navbar() {
 
     return (
         <nav className="flex items-center justify-between p-3 bg-[#97A89C] border-b">
-            <Link href="/" className="font-bold text-xl">
-                MyStore
+            <Link href="/" className={`${playfair.className} text-2x1 font-medium tracking-wide`}>
+                SofiKa
             </Link>
             <NavigationMenu>
                 <NavigationMenuList>
