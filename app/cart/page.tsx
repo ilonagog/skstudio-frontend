@@ -1,4 +1,5 @@
 import {Button} from "@/components/ui/button";
+import  {useCart} from "../context/CartContext"
 export default function Cart (){
     return (
         <div>
