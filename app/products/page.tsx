@@ -72,7 +72,7 @@ export default function ProductsPage(){
     const searchParams =  useSearchParams();
     const query = searchParams.get("q") ?? "";
 
-    const searchKeys = ['name', 'color', 'material', 'description', 'rating', 'reviewCount'] as const;
+    const searchKeys = ['name', 'color', 'material', 'description'] as const;
 
     // const handleSearch = products.filter((product) => {
     //     return searchKeys.some((key) => product[key].toLowerCase().includes(query.toLowerCase()))
