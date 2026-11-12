@@ -20,7 +20,8 @@ const products=[
         material:"Canvas", 
         description: "Painting of colors", 
         image: "/painting.jpeg",
-        rating: 4.5,
+        rating: 3.5,
+        reviewCount: 10,
     }
         ,
     {
@@ -32,7 +33,8 @@ const products=[
         material:"Clay",  
         description: "House from the clay",
         image: "/clayhouse.jpeg",
-        rating: 4.5,
+        rating: 2,
+        reviewCount: 16,
     },
             {
         id:3, 
@@ -43,7 +45,8 @@ const products=[
         material:"Wool",  
         description: "Purple scarf", 
         image: "/scarf.jpeg",
-        rating: 4.5,
+        rating: 4,
+        reviewCount: 9,
     },
         
     {
@@ -56,6 +59,7 @@ const products=[
         description: "Christmas Toy",
         image: "/christmas.jpeg",
         rating: 4.5,
+        reviewCount: 14,
     },
 ];
 
@@ -68,7 +72,7 @@ export default function ProductsPage(){
     const searchParams =  useSearchParams();
     const query = searchParams.get("q") ?? "";
 
-    const searchKeys = ['name', 'color', 'material', 'description'] as const;
+    const searchKeys = ['name', 'color', 'material', 'description', 'rating', 'reviewCount'] as const;
 
     // const handleSearch = products.filter((product) => {
     //     return searchKeys.some((key) => product[key].toLowerCase().includes(query.toLowerCase()))
@@ -119,9 +123,18 @@ export default function ProductsPage(){
                 </p>
 
                 </div>
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
+                {productsListed.map((product)=> (
+                    <ProductCard 
+                        key={product.id}
+                        productItem={product}
+                        isAdmin={false}
+                    />
+                ))}
+            </div>
                 {/* Product cards */}
-                <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {/* <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {productsListed.map((product) => (
                     <article key={product.id} className="group min-w-0">
                     <div className="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
@@ -143,7 +156,7 @@ export default function ProductsPage(){
                     </div>
                     </article>
                 ))}
-                </div>
+                </div> */}
             </section>
             {/* </div> */}
         </div>
