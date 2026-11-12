@@ -19,7 +19,10 @@ const products=[
         category: "Painting", 
         material:"Canvas", 
         description: "Painting of colors", 
-        image: "/painting.jpeg"},
+        image: "/painting.jpeg",
+        rating: 4.5,
+    }
+        ,
     {
         id:2, 
         name:"Clay House", 
@@ -28,7 +31,8 @@ const products=[
         category: "Home Decor",
         material:"Clay",  
         description: "House from the clay",
-        image: "/clayhouse.jpeg"
+        image: "/clayhouse.jpeg",
+        rating: 4.5,
     },
             {
         id:3, 
@@ -38,7 +42,10 @@ const products=[
         category: "Clothing", 
         material:"Wool",  
         description: "Purple scarf", 
-        image: "/scarf.jpeg"},
+        image: "/scarf.jpeg",
+        rating: 4.5,
+    },
+        
     {
         id:4, 
         name:"Christmas ornament", 
@@ -47,7 +54,8 @@ const products=[
         category: "Home Decor", 
         material:"Clay", 
         description: "Christmas Toy",
-        image: "/christmas.jpeg"
+        image: "/christmas.jpeg",
+        rating: 4.5,
     },
 ];
 
@@ -128,6 +136,7 @@ export default function ProductsPage(){
                         <h2 className="text-sm font-medium text-black-100">
                         {product.name}
                         </h2>
+                        <h2>{product.rating}</h2>
                         <p className="mt-1 text-sm text-black-400">
                         ${product.price.toFixed(2)}
                         </p>
