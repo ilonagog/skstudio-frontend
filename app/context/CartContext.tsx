@@ -2,13 +2,15 @@
 import { createContext, useContext, useState } from "react";
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-type Product = {id: number; name: string;  price: number };
+type Product = {id: number; name: string;  price: number; image: string; };
 type CartItem =  Product & {quantity: number};
 type CartContextType = {
     cart: CartItem[];
     addToCart: (product: Product) => void;
     removeFromCart: (id: number) => void;
     totalItems: number;
+    totalPrice: number;
+    updatedQuantity: (id: number, quantity: number) => void;
 };
 
 export default function CartProvider({children}: {children: React.ReactNode}){
@@ -29,6 +31,15 @@ export default function CartProvider({children}: {children: React.ReactNode}){
     }
     const totalItems = cart.reduce((sum, item) => sum +item.quantity, 0);
     console.log("in cart is ", cart)
+
+    const totalPrice = cart.reduce((sum, item)=> sum + item.price * item.quantity, 0 );
+    console.log("price", cart )
+    const updatedQuantity =(productId: number, quantity: number) =>{
+        if(quantity <1 ) return;
+        setCart((prevCart) =>
+        prevCart.map((item) => item.id === productId ? {...item, quantity} : item));
+    };
+    
     return (
         <CartContext.Provider value={{cart, addToCart, removeFromCart, totalItems, totalPrice, updatedQuantity}}>
             {children}
