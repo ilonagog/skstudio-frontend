@@ -23,6 +23,7 @@ const productList =[
     {title: "Painting", href: "/products/painting"},
 ];
 export default function Navbar() {
+
     const {cart, totalItems, removeFromCart} = useCart();
     const [isOpen, setIsOpen] = useState(false)
     
@@ -52,7 +53,7 @@ export default function Navbar() {
     
 
     return (
-        <nav className="flex items-center justify-between p-3 bg-[#97A89C] border-b">
+        <nav className="flex items-center justify-between p-3 bg-[#B7D88D] border-b">
             <Link href="/" className={`${playfair.className} text-2xl font-medium tracking-wide`}>
                 SofiKa
             </Link>
@@ -86,9 +87,17 @@ export default function Navbar() {
 
                 <SearchBar/>
             </Suspense>
-            <div className="relative">
-                <Button variant="ghost" size="icon" aria-label="Shopping bag" onClick={()=> setIsOpen((prev) => !prev)}>
+            <div className="relative"
+                onMouseEnter={()=> setIsOpen(true)}
+                // onMouseLeave={()=> setIsOpen(false)}
+            >
+                <Button variant="ghost" size="icon" aria-label="Go to shopping cart" onClick={()=> router.push("/cart")}>
                     <ShoppingBag className="h-5 w-5"/>
+                    {totalItems > 0 && (
+                        <span className="absolute -right-1 -top-1 rounded-full bg-white px-1.5 text-xs">
+                            {totalItems}
+                        </span>
+                    )}
                 </Button>
                 {isOpen && <CartItem onClose={() => setIsOpen(false)} />}
             </div>

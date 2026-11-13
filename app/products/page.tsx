@@ -93,7 +93,7 @@ export default function ProductsPage(){
     console.log("ticked:", selectedColors, selectedMaterials, selectedCategories);
     console.log("filtered:", filteredProducts.length, "final:", productsListed.length);
   return (
-    <main className="min-h-screen bg-[#5E6A62] px-5 py-10 text-gray-900 sm:px-8">      <div className="mx-auto max-w-7xl">
+    <main className="min-h-screen bg-[#EDFFCC] px-5 py-10 text-gray-900 sm:px-8">      <div className="mx-auto max-w-7xl">
             {/* Page heading */}
             <div className="mb-10 border-b border-neutral-800 pb-6">
             <p className="mb-2 text-xs uppercase tracking-[0.3em] text-black-400">
