@@ -53,7 +53,7 @@ export default function Navbar() {
     
 
     return (
-        <nav className="flex items-center justify-between p-3 bg-[#B7D88D] border-b">
+        <nav className="flex items-center justify-between p-3 bg-[#] border-b">
             <Link href="/" className={`${playfair.className} text-2xl font-medium tracking-wide`}>
                 SofiKa
             </Link>
