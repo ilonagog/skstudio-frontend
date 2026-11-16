@@ -3,7 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {Heart, Star} from "lucide-react";
 import { useState } from "react";
-import {useCart} from "../context/CartContext"
+import {useCart} from "../context/CartContext";
+import {useRouter} from "next/navigation";
 
 
 type Product = {
@@ -25,9 +26,10 @@ export default function ProductCard({productItem, isAdmin,}: ProductCardProps){
     const {addToCart} = useCart();
     const [isFavorite, setIsFavorite] = useState(false);
     const {name, price, description, image, rating, reviewCount} = productItem;
+    const router = useRouter();
   
     return (
-        <Card className="relative w-full overflow-hidden p-3">
+        <Card className="relative w-full overflow-hidden p-3" onClick={() => router.push(`/products/${productItem.id}`)}>
             {!isAdmin && (
                 <button
                     type="button"
@@ -70,7 +72,7 @@ export default function ProductCard({productItem, isAdmin,}: ProductCardProps){
                         <Button>Delete</Button>
                     </div>
                 ) : (
-                    <Button className="mt-3 w-full" onClick={()=>{
+                    <Button className="mt-3 w-full" onClick={(e)=>{ e.stopPropagation();
                         console.log("button clicked", productItem); addToCart(productItem)}}>Add to the Cart</Button>
                 )}
             </div>

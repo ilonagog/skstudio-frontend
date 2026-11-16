@@ -1,6 +1,6 @@
-export const metadata = {
-    title: "Product",
-};
+"use client";
+
+
 
 export default function ProductPage(){
     return (
